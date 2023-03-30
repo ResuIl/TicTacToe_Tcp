@@ -4,6 +4,8 @@ public class TicTacToe
 {
     private Dictionary<string, string> Game = new();
     private Dictionary<int, char[,]> RoomCurrentGame = new();
+    private Dictionary<int, int> RoomCurrentMove = new();
+
 
     public void AddGamer(string User, string Type)
     {
@@ -17,10 +19,19 @@ public class TicTacToe
 
     public string GetUserType(string User) => Game[User];
 
-    public void ResetRoomGame(int roomId) => RoomCurrentGame.Remove(roomId);
+    public void ResetRoomGame(int roomId)
+    {
+        RoomCurrentGame.Remove(roomId);
+        RoomCurrentMove.Remove(roomId);     
+    }
 
     public bool UpdateBoard(int roomId, int row, int col, string type)
     {
+        if (!RoomCurrentMove.ContainsKey(roomId))
+            RoomCurrentMove.Add(roomId, 1);
+        else
+            RoomCurrentMove[roomId] = RoomCurrentMove[roomId] + 1;
+
         char[,] currentGame = RoomCurrentGame[roomId];
 
         if (currentGame[row, col] == '\0')
@@ -36,5 +47,12 @@ public class TicTacToe
             }
         }
         return false;
+    }
+
+    public int GetCurrentMove(int roomId)
+    {
+        if (RoomCurrentMove.ContainsKey(roomId))
+            return RoomCurrentMove[roomId];
+        return 0;
     }
 }

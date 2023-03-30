@@ -93,16 +93,18 @@ while (true)
             }
             else if (splitedMessage[0] == "Turn")
             {
+                
                 int row = int.Parse(splitedMessage[1]);
                 int col = int.Parse(splitedMessage[2]);
                 int roomId = int.Parse(splitedMessage[4]);
                 string type = splitedMessage[3];
-                if (splitedMessage[5] == "Nine")
+                Console.WriteLine(game.GetCurrentMove(roomId));
+                if (game.GetCurrentMove(roomId) == 8)
                 {
                     SendData(roomId, "Draw");
                     game.ResetRoomGame(roomId);
                     Room.Remove(roomId);
-                } 
+                }
                 else
                 {
                     if (!game.UpdateBoard(roomId, row, col, type))
