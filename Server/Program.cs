@@ -98,7 +98,7 @@ while (true)
                 int col = int.Parse(splitedMessage[2]);
                 int roomId = int.Parse(splitedMessage[4]);
                 string type = splitedMessage[3];
-                Console.WriteLine(game.GetCurrentMove(roomId));
+                //Console.WriteLine(game.GetCurrentMove(roomId));
                 if (game.GetCurrentMove(roomId) == 8)
                 {
                     SendData(roomId, "Draw");
